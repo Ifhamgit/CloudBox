@@ -6,18 +6,33 @@ const Login = (props) => {
 
   const host = "http://localhost:5000"
   const[credentials, setCredentials] = useState({email:"", password:""})
-
-  let navigate = useNavigate();
  
 
+  let navigate = useNavigate();
+  const [focusedE, setFocusedE] = useState(false);
+  const [focusedP, setFocusedP] = useState(false);
 
-  const onchange = (e)=>{
+  
+  const onchangeE = (e)=>{
     //The significane of "...note" here is that a new object is created with setnote which hass all the properties of note just the updation is
     //[e.target.name]:e.target.value .
     setCredentials({...credentials, [e.target.name]:e.target.value})   
   //The [e.target.name]: e.target.value syntax creates a new property on the object with the key equal to the value of e.target.name and
   //the value equal to e.target.value. This allows you to update a specific property of the note object based on the name attribute of the
-  //input element that triggered the event.
+  if(!e.target.value){
+    setFocusedE(false)
+  }else{
+    setFocusedE(true)
+  }
+}
+  const onchangeP = (e)=>{
+    setCredentials({...credentials, [e.target.name]:e.target.value})   
+    
+    if(!e.target.value){
+      setFocusedP(false)
+    }else{
+      setFocusedP(true)
+    }
 }
 
 
@@ -56,25 +71,45 @@ const Login = (props) => {
 
 
   return (
-    <div className='mt-3'>
-      <h2>Login to use CloudBox</h2>
-      <form  onSubmit={handleSubmit}>
-    <div className="mb-3">
-        <label htmlFor="email" className="form-label">Email address</label>
-        <input type="email" className="form-control" id="email" value={credentials.email} onChange={onchange} name = "email" aria-describedby="emailHelp"/>
-        <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+    // <div className='mt-3'>
+    //   <h2>Login to use CloudBox</h2>
+    //   <form  onSubmit={handleSubmit}>
+    // <div className="mb-3">
+    //     <label htmlFor="email" className="form-label">Email address</label>
+    //     <input type="email" className="form-control" id="email" value={credentials.email} onChange={onchange} name = "email" aria-describedby="emailHelp"/>
+    //     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+    // </div>
+    // <div className="mb-3">
+    //     <label htmlFor="password" className="form-label">Password</label>
+    //     <input type="password" className="form-control" value={credentials.password} onChange={onchange} name='password' id="password"/>
+    // </div>
+    // <div className="mb-3 form-check">
+    //     <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+    //     <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+    // </div>
+    // <button type="submit" className="btn btn-primary">Submit</button>
+    // </form>
+
+    <div className="login-box">
+  <h2>Login</h2>
+  <form onSubmit={handleSubmit}>
+    <div className="user-box">
+    <label className={focusedE ? "d-none" : ""}>Email</label>
+      <input type="email" name="email" value={credentials.email} onChange={onchangeE} required=""/>
+      
     </div>
-    <div className="mb-3">
-        <label htmlFor="password" className="form-label">Password</label>
-        <input type="password" className="form-control" value={credentials.password} onChange={onchange} name='password' id="password"/>
+    <div className="user-box">
+    <label className={focusedP ? "d-none" : ""}>Password</label>
+      <input type="password" value={credentials.password} onChange={onchangeP} name="password"  required=""/>
+      
     </div>
-    <div className="mb-3 form-check">
-        <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-        <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-    </div>
-    <button type="submit" className="btn btn-primary">Submit</button>
-    </form>
-    </div>
+    <input type="submit" name="login" value="login"/>
+    {/* <a href=" You forgot your password?">
+    Forgot your password?
+  </a> */}
+  </form>
+</div>
+    // </div>
   )
 }
 
