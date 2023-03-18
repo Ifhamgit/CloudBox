@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Goauth from './Goauth'
 
 const Login = (props) => {
 
@@ -86,6 +87,7 @@ const Login = (props) => {
       
     </div>
     <input type="submit" name="login" value="login"/>
+    <Goauth/>
     {/* <a href=" You forgot your password?">
     Forgot your password?
   </a> */}
