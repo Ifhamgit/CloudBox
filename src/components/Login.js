@@ -87,26 +87,6 @@ const Login = (props) => {
            }
         const user2 = await data.user_json
         setUser(user2);
-        // if(user){
-        //   localStorage.setItem("token", data.authToken) 
-       
-        
-        // console.log(user)
-        
-        // const json = await data.json()
-        // if(json.success){
-        //   //save the auth-token and redirect
-        //   localStorage.setItem("token", json.authToken) //The code localStorage.setItem("token", json.authtoken) sets a key-value pair in
-        //   // the browser's localStorage object. The key is "token" and the value is the value of the authtoken property in a JSON object
-        //   // called json.
-  
-        //     //localStorage is a property of the global window object in web browsers that allows you to store data in key-value
-        //     // pairs in the browser. Data stored using localStorage is persistent even after the user closes the browser or navigates 
-        //     //to a different page.
-  
-        //     // props.showAlert("Welcome User", "success")
-        //     navigate("/"); //By this hook we will navigate to the home("/") as soon as user puts correct credentials and submits.
-        // }
   
       } catch (err) {
         console.log(err);
@@ -137,10 +117,6 @@ const Login = (props) => {
     <input type="submit" name="login" value="login"/>
     <Goauth/>
    
-    
-    {/* <a href="/auth/google">Login with Google</a>
-
-    
     {/* <a href=" You forgot your password?">
     Forgot your password?
   </a> */}
@@ -155,4 +131,3 @@ const Login = (props) => {
 
 export default Login
 
-//"http://localhost:5000/auth/login/success"

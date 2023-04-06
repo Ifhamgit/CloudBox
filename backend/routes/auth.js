@@ -138,6 +138,7 @@ try {
 
 
 
+//Route:-4(Google login)  Successful login happens on this route: GET "/auth/login/success". login is not required.  
 
 router.get("/login/success",async (req, res) => {
     let success=true
@@ -157,24 +158,17 @@ router.get("/login/success",async (req, res) => {
 			error: false,
 			message: "Successfully Loged In",
 			user: req.user,
-            authToken
-           
-            
+            authToken  
 		});
-        
-       
            //data here is object and second parameter is the signature string
-        // res.json(user)
-       
-     
-        
+        // res.json(user)   
 	}
-    
-    
     else {
 		res.status(403).json({ error: true, message: "Not Authorized" });
 	}
 });
+
+
 
 // router.get("/login/failed", (req, res) => {
 // 	res.status(401).json({
@@ -182,6 +176,10 @@ router.get("/login/success",async (req, res) => {
 // 		message: "Log in failure",
 // 	});
 // });
+
+
+
+//Route:-5(Google login)  Successful SignUp happens on this route: GET "/auth/login/created". login is not required.
 router.get("/login/created", (req, res) => {
 	res.status(200).json({
 		error: false,
@@ -189,8 +187,12 @@ router.get("/login/created", (req, res) => {
 	});
 });
 
+
+//Route:-6(Google login)  Authntication of user happens on this route: GET "/auth/google". login is not required.
 router.get("/google", passport.authenticate("google", ["profile", "email"]));
 
+
+//Route:-7(Google login)  Google callback happens on this route: GET "/auth/google/callback". login is not required.
 router.get(
 	"/google/callback",
 	passport.authenticate("google", {
@@ -200,6 +202,9 @@ router.get(
 	})
 );
 
+
+
+//Route:-8(Google login)  Successful logout happens on this route: GET "/auth/logout". login is required.
  router.get("/logout",  (req, res) => {
     console.log("hello")
     req.logout();
@@ -210,6 +215,8 @@ router.get(
  	res.redirect("http://localhost:3000/login");
     
  });
+
+
 
 module.exports = router;
 
