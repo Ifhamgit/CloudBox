@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Signup = (props) => {
   const host = "http://localhost:5000"
@@ -117,9 +118,7 @@ const Signup = (props) => {
     </div>                                                           {/* This "minLength={5} required" functionality works in "onSubmit" */}
 
     <input type="submit" name="SignUp" value="SignUp"/>
-     <a href="/login">
-    Already have an account?
-  </a> 
+    <Link to="/login">Already have an account?</Link>
   </form>
 </div>
   )

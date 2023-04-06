@@ -13,6 +13,7 @@ const Notes = (props) => {
   
     useEffect(()=>{
       if(localStorage.getItem("token")){
+        
         fetchNotes()
       }
       else{
@@ -69,7 +70,7 @@ const Notes = (props) => {
 
       <form>
           <div className="mb-3">
-            <label htmlFor="title" className="form-label">Title</label>
+            <label htmlFor="title"  className="form-label">Title</label>
             <input type="text" className="form-control" id="etitle" name='etitle' aria-describedby="emailHelp"
              value={note.etitle} onChange={onchange} minLength={3} required/>
             
@@ -97,7 +98,7 @@ const Notes = (props) => {
       <div className="row">
           <div className=" row my-3 mx-auto col-10 col-md-6 col-lg-10 ">
             <h2>View your notes here</h2>
-            <div className="container mx-3">
+            <div className="container mx-3" style={{color:"white"}}>
             {notes.length === 0 && "No notes to display"}  
             {/* if the left side of && is true then the right side will be returned */}
             </div>

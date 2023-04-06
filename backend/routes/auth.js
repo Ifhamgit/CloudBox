@@ -6,6 +6,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const fetchuser = require('../middleware/fetchuser');
 
+const passport = require("passport");
+
+
+
 JWT_Secret = "Ifhamisvaryvarygoodb@y"    //We make a signature for JWT
                                         // It is used to catch the users who try to tamper with our authToken
 
@@ -99,7 +103,7 @@ try {
 
     const data = {        //This is the payload
         user:{
-            id:user.id
+            id:user.id 
         }
     }
     const authToken = jwt.sign(data, JWT_Secret)   //data here is object and second parameter is the signature string
@@ -128,11 +132,94 @@ try {
     res.status(500).send("Internal server Error")
 }
 })
-module.exports = router
 
 
-// {
-//     "name": "Ifham",
-//     "email": "email@mail.com",
-//     "password": "567890678"
-//   }
+
+
+
+
+
+router.get("/login/success",async (req, res) => {
+    let success=true
+    console.log(req.user)
+	if (req.user) {
+        const {email} = req.user
+        
+        let user =  await User.findOne({email}) 
+        const data = {        //This is the payload
+            user:{
+                id:user.id
+            }
+        }
+        const authToken = jwt.sign(data, JWT_Secret)
+		res.status(200).json({
+            success,
+			error: false,
+			message: "Successfully Loged In",
+			user: req.user,
+            authToken
+           
+            
+		});
+        
+       
+           //data here is object and second parameter is the signature string
+        // res.json(user)
+       
+     
+        
+	}
+    
+    
+    else {
+		res.status(403).json({ error: true, message: "Not Authorized" });
+	}
+});
+
+// router.get("/login/failed", (req, res) => {
+// 	res.status(401).json({
+// 		error: true,
+// 		message: "Log in failure",
+// 	});
+// });
+router.get("/login/created", (req, res) => {
+	res.status(200).json({
+		error: false,
+		message: "Sign Up completed, Log In with google to continue",
+	});
+});
+
+router.get("/google", passport.authenticate("google", ["profile", "email"]));
+
+router.get(
+	"/google/callback",
+	passport.authenticate("google", {
+		successRedirect: "http://localhost:3000/",
+		// failureRedirect: "http://localhost:5000/auth/login/failed"
+		failureRedirect: "http://localhost:5000/auth/login/created"
+	})
+);
+
+ router.get("/logout",  (req, res) => {
+    console.log("hello")
+    req.logout();
+    console.log("hello2")
+     res.clearCookie('session');
+     console.log("hello3")
+ 	
+ 	res.redirect("http://localhost:3000/login");
+    
+ });
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+

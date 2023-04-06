@@ -1,59 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Goauth = ()=>{
-    const [ user, setUser ] = useState([]);
-    const [ profile, setProfile ] = useState([]);
 
-    const login = useGoogleLogin({
-        onSuccess: (codeResponse) => setUser(codeResponse),
-        onError: (error) => console.log('Login Failed:', error)
-    });
 
-    useEffect(
-        () => {
-            if (user) {
-                axios
-                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.access_token}`,
-                            Accept: 'application/json'
-                        }
-                    })
-                    .then((res) => {
-                        setProfile(res.data);
-                    })
-                    .catch((err) => console.log(err));
-            }
-        },
-        [ user ]
-    );
 
-    // log out function to log the user out of google and set the profile array to null
-    const logOut = () => {
-        googleLogout();
-        setProfile(null);
+const Goauth = () => {
+
+  const googleAuthlogin = () => {
+		window.open(
+      // `${process.env.REACT_APP_API_URL}/auth/google/callback`
+			"http://localhost:5000/auth/google/callback",
+			"_self"
+		);
+    }
+  const googleAuthlogout = (userDetails) => {
+    const user = userDetails.user;
+    const logout = () => {
+      window.open("http://localhost:5000/auth/logout", "_self");
     };
-
-    return (
-        <div>
-            
-            {profile ? (
-                <div>
-                    <img src={profile.picture} alt="user image" />
-                    <h3>User Logged in</h3>
-                    <p>Name: {profile.name}</p>
-                    <p>Email Address: {profile.email}</p>
-                    <br />
-                    <br />
-                    <button onClick={logOut}>Log out</button>
-                </div>
-            ) : (
-                <button onClick={() => login()}>Sign in with Google 🚀 </button>
-            )}
+}
+ 
+  return (
+   <div>
+        
+         <button className='btn btn-outline-light my-3' onClick={googleAuthlogin}>google login</button> 
+        {/* <p>
+          <Link to="/signup">Sing Up</Link>
+        </p> */}
+     
         </div>
-    );
+);
 }
 
 

@@ -39,6 +39,7 @@ router.post('/addnote', fetchuser,[
         const note = new Note ({          // This will return a promise
             title, description, tag, user: req.user.id 
         })
+        console.log(req.user)
         const savedNote = await note.save()
     
         res.json(savedNote)

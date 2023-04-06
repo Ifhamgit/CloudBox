@@ -1,16 +1,37 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 
 const Navbar = () => {
 
   let navigate = useNavigate()
 
-  const handleLogout =()=>{
+  const handleLogout =async(e)=>{
+   
+    
+   
+    
+    // const response = await fetch("http://localhost:5000/auth/logout", {
+    //   method: "GET", // *GET, POST, PUT, DELETE, etc.
+     
+    //   headers: {
+    //     "Content-Type": "application/json",
+        
+    //   },
+    //   // body: JSON.stringify({email:credentials.email, password:credentials.password})
+
+    // })
+    window.open("http://localhost:5000/auth/logout", "_self");
     localStorage.removeItem("token")
-    navigate("/login")
+   
+    // navigate("/login")
+  
+
   }
+
+ 
 
   let location = useLocation();
   // useEffect(() => {

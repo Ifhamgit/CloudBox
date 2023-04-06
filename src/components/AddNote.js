@@ -45,9 +45,9 @@ const AddNote = (props) => {
           </div>
           <div className="mb-3">
             <label htmlFor="tag" className="form-label">Tag</label>
-            <input type="text" className="form-control" id="tag" name='tag' onChange={onchange} value={note.tag}minLength={3} required/>
+            <input type="text" className="form-control" id="tag" name='tag' onChange={onchange} value={note.tag} minLength={3} required/>
           </div> 
-          <button type="submit" disabled={note.title<3 || note.description<5 } className="btn btn-primary" onClick={AddingNote}>Add Note</button>
+          <button type="submit" disabled={note.title<3 || note.description<5 } className="btn btn-outline-light" onClick={AddingNote}>Add Note</button>
         </form>
         </div>
         </div>
