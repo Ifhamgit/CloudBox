@@ -22,7 +22,7 @@ passport.use(
 			         console.log("error in google strategy-passport",err);
 			         return
 			     }
-			     console.log(profile)
+			    //  console.log(profile)
 			     if (user) {
 			         // User already exists, return the user
 			         done(null, user);

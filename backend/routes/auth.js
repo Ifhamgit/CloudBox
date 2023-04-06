@@ -142,7 +142,7 @@ try {
 
 router.get("/login/success",async (req, res) => {
     let success=true
-    console.log(req.user)
+    // console.log(req.user)
 	if (req.user) {
         const {email} = req.user
         
@@ -206,12 +206,9 @@ router.get(
 
 //Route:-8(Google login)  Successful logout happens on this route: GET "/auth/logout". login is required.
  router.get("/logout",  (req, res) => {
-    console.log("hello")
+
     req.logout();
-    console.log("hello2")
-     res.clearCookie('session');
-     console.log("hello3")
- 	
+    res.clearCookie('session');
  	res.redirect("http://localhost:3000/login");
     
  });
