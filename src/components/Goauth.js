@@ -15,13 +15,14 @@ const Goauth = () => {
     }
  
  
+ 
   return (
    <div>
          <div className="google-btn my-4" onClick={googleAuthlogin} >
           <div className="google-icon-wrapper">
             <img className="google-icon" alt='' src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
           </div>
-          <p className="btn-text"  > Sign in with google</p>
+          <p className="btn-text"  > Sign In with Google</p>
         </div>
         {/* <p>
           <Link to="/signup">Sing Up</Link>

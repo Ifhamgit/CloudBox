@@ -138,20 +138,36 @@ try {
 
 
 
-//Route:-4(Google login)  Successful login happens on this route: GET "/auth/login/success". login is not required.  
+//Route:-4(OAuth login)  Successful login happens on this route: GET "/auth/login/success". login is not required.  
 
 router.get("/login/success",async (req, res) => {
     let success=true
-    // console.log(req.user)
+    //  console.log(req.user)
+     
 	if (req.user) {
+        if(req.user.email){
         const {email} = req.user
         
         let user =  await User.findOne({email}) 
-        const data = {        //This is the payload
+        var data = {        //This is the payload
             user:{
                 id:user.id
             }
         }
+    }
+        if(req.user.username){
+        const {username} = req.user
+        
+        let user =  await User.findOne({username}) 
+        console.log(user)
+        var data = {        //This is the payload
+            user:{
+                id:user.id
+        
+            }
+        }
+        console.log(user.id)
+    }
         const authToken = jwt.sign(data, JWT_Secret)
 		res.status(200).json({
             success,
@@ -179,11 +195,11 @@ router.get("/login/success",async (req, res) => {
 
 
 
-//Route:-5(Google login)  Successful SignUp happens on this route: GET "/auth/login/created". login is not required.
+//Route:-5(OAuth Signup)  Successful SignUp happens on this route: GET "/auth/login/created". login is not required.
 router.get("/login/created", (req, res) => {
 	res.status(200).json({
-		error: false,
-		message: "Sign Up completed, Log In with google to continue",
+		
+		message: "Sign Up completed, User has been created, Log In / repeat the process to continue",
 	});
 });
 
@@ -204,7 +220,7 @@ router.get(
 
 
 
-//Route:-8(Google login)  Successful logout happens on this route: GET "/auth/logout". login is required.
+//Route:-8(OAuth logout)  Successful logout happens on this route: GET "/auth/logout". login is required.
  router.get("/logout",  (req, res) => {
 
     req.logout();
@@ -213,6 +229,21 @@ router.get(
     
  });
 
+
+
+
+
+ router.get('/github',
+  passport.authenticate('github', { scope: [ 'profile', "email" ] }));
+
+
+router.get('/github/callback', 
+  passport.authenticate('github', { 
+  successRedirect: "http://localhost:3000/",
+  // failureRedirect: "http://localhost:5000/auth/login/failed"
+  failureRedirect: "http://localhost:5000/auth/login/created"
+
+   }));
 
 
 module.exports = router;
